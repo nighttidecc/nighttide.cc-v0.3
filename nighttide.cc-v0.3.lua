@@ -77,11 +77,17 @@ section:Toggle({
     end
 })
 
+-- Takım kontrolü için fonksiyon
 local function isEnemy(player)
     local localPlayer = game.Players.LocalPlayer
-    return player.Team and localPlayer.Team and player.Team ~= localPlayer.Team or true
+    if player.Team and localPlayer.Team then
+        return player.Team ~= localPlayer.Team
+    else
+        return true
+    end
 end
 
+-- ESP kutusu oluşturma fonksiyonu
 local function createESPBox(character, isEnemy)
     local box = Drawing.new("Square")
     local healthBar = Drawing.new("Line")
@@ -162,6 +168,7 @@ local function createESPBox(character, isEnemy)
     return updateBox, cleanupBox
 end
 
+-- Yalnızca düşmanlara kitlenen aimbot hedef belirleme
 local function getClosestPlayerToFOV()
     local closestPlayer = nil
     local shortestDistance = fov_circle.Radius
